@@ -50,4 +50,9 @@ public class KitchenSinkController : Interactable
             }
         }
     }
+
+    public override void TriggerCatastrophe()
+    {
+        return;
+    }
 }

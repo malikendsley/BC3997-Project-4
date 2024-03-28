@@ -53,4 +53,25 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void debug_TriggerBreakables()
+    {
+        foreach (Interactable interactable in interactables)
+        {
+            if (interactable is BreakableObjectController)
+            {
+                interactable.TriggerCatastrophe();
+            }
+        }
+    }
+
+    public void debug_FixBreakables()
+    {
+        foreach (Interactable interactable in interactables)
+        {
+            if (interactable is BreakableObjectController)
+            {
+                interactable.PlayerFix();
+            }
+        }
+    }
 }
