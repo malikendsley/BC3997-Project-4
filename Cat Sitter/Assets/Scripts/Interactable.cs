@@ -2,7 +2,14 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    public float timeToCatastrophe { get; set; }
+    [SerializeField]
+    private float timeToCatastrophe;
+    public float TimeToCatastrophe
+    {
+        get { return timeToCatastrophe; }
+        set { timeToCatastrophe = value; }
+    }
+
     public enum InteractionState { Idle, Active, Catastrophe, Cooldown }
     protected InteractionState currentState = InteractionState.Idle;
     public abstract void CatStart(); // Used by the cat AI to activate the catastrophe
