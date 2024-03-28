@@ -19,7 +19,7 @@ public class BreakableObjectController : Interactable
     Vector3 originalScale;
     GameObject brokenObjRef;
     [SerializeField]
-    private collisionCommunicator collisionCommunicator;
+    private collisionCommunicator comm;
 
     private void OnDrawGizmosSelected()
     {
@@ -39,24 +39,18 @@ public class BreakableObjectController : Interactable
 
     public override void TriggerCatastrophe()
     {
-        currentState = InteractionState.Catastrophe;
         rb.isKinematic = false;
         rb.AddForce(knockImpulse, ForceMode.Impulse);
     }
 
-    public override void PlayerFix()
-    {
-        ResetObject();
-    }
-
     void OnEnable()
     {
-        collisionCommunicator.Broken += BreakObject;
+        comm.Broken += BreakObject;
     }
 
     void OnDisable()
     {
-        collisionCommunicator.Broken -= BreakObject;
+        comm.Broken -= BreakObject;
     }
 
     void Start()
@@ -97,6 +91,11 @@ public class BreakableObjectController : Interactable
 
     private void BreakObject()
     {
+        Debug.Log("Breaking object");
+        if (currentState == InteractionState.Catastrophe)
+        {
+            return;
+        }
         fragileObj.SetActive(false);
         brokenObjRef = Instantiate(brokenObject, fragileObj.transform.position, fragileObj.transform.rotation);
         brokenObjRef.transform.parent = fragileObj.transform.parent;
@@ -120,5 +119,9 @@ public class BreakableObjectController : Interactable
                 brokenObjRef = null;
             });
         }
+    }
+    public override void PlayerFix()
+    {
+        ResetObject();
     }
 }
