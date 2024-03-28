@@ -9,6 +9,20 @@ public class LevelManager : MonoBehaviour
     public List<Interactable> interactables;
     public GameObject interactablesContainer;
 
+    public float cleanliness = 100; // TODO: Extract into stat block or something
+    public float gameLength = 120;
+    private float timeRemaining;
+
+    [SerializeField]
+    UIController uicontroller;
+    enum GameState
+    {
+        Playing,
+        Paused,
+        GameEnd,
+    }
+    GameState gameState = GameState.Playing;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +35,33 @@ public class LevelManager : MonoBehaviour
                 interactables.Add(interactable);
             }
         }
+        if (uicontroller == null)
+        {
+            Debug.LogError("UIController not set in LevelManager");
+        }
+        uicontroller.SetTime(gameLength);
+        timeRemaining = gameLength;
+        uicontroller.SetCleanliness(cleanliness);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        switch (gameState)
+        {
+            case GameState.Playing:
+                timeRemaining -= Time.deltaTime;
+                uicontroller.SetTime(timeRemaining);
+                if (timeRemaining <= 0)
+                {
+                    Debug.Log("Game Over");
+                }
+                break;
+            case GameState.Paused:
+                break;
+            case GameState.GameEnd:
+                break;
+        }
     }
 
     // TODO: Remove later
