@@ -73,7 +73,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
@@ -83,7 +83,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.713867
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
@@ -93,7 +93,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
@@ -103,7 +103,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
@@ -127,8 +127,13 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 43a2a9aa3c50b034e8418b420c9cec07, type: 2}
     - target: {fileID: -5104558097876923721, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5104558097876923721, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
+        type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.073
+      value: 2.043
       objectReference: {fileID: 0}
     - target: {fileID: -4354131643154535860, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
@@ -228,6 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToCatastrophe: 3
+  timeToFix: 0
+  timeToCooldown: 0
   waterPlane: {fileID: 9018734658353697222}
   floodPlane: {fileID: 6318469591681926407}
   lowerWaterPos: {fileID: 8917491403424870802}
