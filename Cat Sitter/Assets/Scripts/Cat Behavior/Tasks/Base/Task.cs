@@ -25,7 +25,7 @@ public abstract class Task
     }
 
     // Task pauses for whatever reason
-    // eg. cat is picked up
+    // eg. cat is picked up, distracted by toy? idk if that should be interrupt or pause
     public virtual void Pause() {
 
     }
