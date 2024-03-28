@@ -42,12 +42,12 @@ public static class TaskManager : MonoBehaviour
 
         // Validate task probabilites
         probSum = 0;
-        for (int i = 0; i < taskProbs.Length, ++i){
+        for (int i = 0; i < taskProbs.Length; ++i){
             probSum += taskProbs[i];
         }
         if (probSum != 1){
-            Debug.Log("Probabilities don't sum to 1! Normalizing.")
-            for (int i = 0; i < taskProbs.Length, ++i){
+            Debug.Log("Probabilities don't sum to 1! Normalizing.");
+            for (int i = 0; i < taskProbs.Length; ++i){
                 probSum[i] /= probSum;
             }
         }
@@ -106,12 +106,12 @@ public static class TaskManager : MonoBehaviour
     }
 
     // Called by Trigger Tasktype
-    public const List<GameObject> GetAvailableInteractors() {
+    public List<GameObject> GetAvailableInteractors() {
         return untriggeredInteractors;
     }
 
     // Called by Trigger Tasktype
-    public const bool ShareGoTriggers() {
+    public bool ShareGoTriggers() {
         return shareGoTriggers;
     }
 
