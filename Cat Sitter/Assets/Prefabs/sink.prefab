@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!1 &8013774199026737793
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!1001 &7319339801640674596
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -164,7 +166,7 @@ PrefabInstance:
     - target: {fileID: -4354131643154535860, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4354131643154535860, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
@@ -204,7 +206,7 @@ PrefabInstance:
     - target: {fileID: 7637185809630480764, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7637185809630480764, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
@@ -235,6 +237,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4361704834518765265}
+    - targetCorrespondingSourceObject: {fileID: 635547659545568360, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1973102796065559849}
     - targetCorrespondingSourceObject: {fileID: 875330301433346464, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
         type: 3}
       insertIndex: -1
@@ -286,6 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!1 &2820145122689349924 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4417837955555959808, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
@@ -304,6 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!1 &3128931887139240287 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3530903213610361733, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
@@ -322,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!1 &3418140120147935747 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3820133778957375705, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
@@ -340,6 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!1 &6318469591681926407 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5603548479270641629, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
@@ -358,6 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!4 &7068748952188142287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
@@ -385,10 +396,10 @@ MonoBehaviour:
   timeToCatastrophe: 3
   timeToFix: 3
   timeToCooldown: 3
-  waterPlane: {fileID: 9018734658353697222}
-  floodPlane: {fileID: 6318469591681926407}
-  lowerWaterPos: {fileID: 8917491403424870802}
-  upperWaterPos: {fileID: 188473424635516331}
+  waterlevelFX: {fileID: 9018734658353697222}
+  floodFX: {fileID: 6318469591681926407}
+  lowerWaterLevel: {fileID: 8917491403424870802}
+  upperWaterLevel: {fileID: 188473424635516331}
 --- !u!114 &2937307163145398623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c619e9908935324f81bf4d4644e3bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!1 &7617355535900892292 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 875330301433346464, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
@@ -419,6 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!1 &7872978241854685516 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 635547659545568360, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
@@ -437,6 +450,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
+--- !u!64 &1973102796065559849
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872978241854685516}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2959467708922500008, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e, type: 3}
 --- !u!1 &8576900525870415523 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1338907542292945799, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
@@ -455,6 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}
 --- !u!1 &9018734658353697222 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1782158429864244450, guid: 9b5bd43d3d4314d47bec2c0cb3912c7e,
@@ -473,3 +510,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 8590919872978643439}

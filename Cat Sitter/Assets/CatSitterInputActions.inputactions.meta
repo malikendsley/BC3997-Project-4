@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f18033718bc228f44a5ed435f94926ce
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 8404be70184654265930450def6a9037, type: 3}
+  generateWrapperCode: 0
+  wrapperCodePath: Assets/Scripts/Cat Sitter.cs
+  wrapperClassName: 
+  wrapperCodeNamespace: 

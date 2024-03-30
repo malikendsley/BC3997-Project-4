@@ -72,7 +72,7 @@ public class LevelManager : MonoBehaviour
         {
             if (interactable is KitchenSinkController)
             {
-                interactable.CatStart();
+                interactable.TriggerCatastrophe();
             }
         }
     }

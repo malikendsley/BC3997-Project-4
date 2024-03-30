@@ -1,54 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
 
-abstract public class interactable : MonoBehaviour
-{
-    [SerializeField]
-    private bool catAllowed;
-    [SerializeField]
-    private bool playerAllowed;
-    enum PlayerInteractionTrigger {
-        click
-    }
-    [SerializeField]
-    PlayerInteractionTrigger trigger;
-    
-    // Start is called before the first frame update
+// abstract public class interactable : MonoBehaviour
+// {
+//     [SerializeField]
+//     private bool catAllowed;
+//     [SerializeField]
+//     private bool playerAllowed;
+//     enum PlayerInteractionTrigger
+//     {
+//         click
+//     }
+//     [SerializeField]
+//     PlayerInteractionTrigger trigger;
 
-    void Start()
-    {
-        
-    }
+//     // Start is called before the first frame update
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+//     void Start()
+//     {
 
-    public bool CanCatInteract(){
-        return catAllowed;
-    }
+//     }
 
-    public bool CanPlayerInteract(){
-        return playerAllowed;
-    }
+//     // Update is called once per frame
+//     void Update()
+//     {
 
-    public void ToggleCatInteract(){
-        catAllowed = !catAllowed;
-    }
+//     }
 
-    public void TogglePlayerInteract(){
-        catAllowed = !catAllowed;
-    }
+//     public bool CanCatInteract()
+//     {
+//         return catAllowed;
+//     }
 
-    private void InteractorCanInteract(GameObject interactor){
-        if (interactor.Tag)
-    }
+//     public bool CanPlayerInteract()
+//     {
+//         return playerAllowed;
+//     }
 
-    public virtual void Interact(GameObject interactor){
-        
-    }    
+//     public void ToggleCatInteract()
+//     {
+//         catAllowed = !catAllowed;
+//     }
 
-}
+//     public void TogglePlayerInteract()
+//     {
+//         catAllowed = !catAllowed;
+//     }
+
+// }

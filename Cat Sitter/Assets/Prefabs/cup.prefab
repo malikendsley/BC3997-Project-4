@@ -106,7 +106,7 @@ MonoBehaviour:
   fragileObj: {fileID: 341185070008800327}
   brokenObject: {fileID: 3974199751576788767, guid: fd72f829e810c044f8ba343c74560bc4,
     type: 3}
-  knockImpulse: {x: 5, y: 1, z: 0}
+  knockImpulse: {x: -5, y: 2, z: 0}
   comm: {fileID: 8006452106329662421}
 --- !u!114 &3871357239366876837
 MonoBehaviour:
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c619e9908935324f81bf4d4644e3bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 1038043515662814956}
 --- !u!1001 &611728492132280598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -309,6 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b75955a8fc2546b3901326cf11d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedInteractable: {fileID: 1038043515662814956}
 --- !u!4 &1150655067246481149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 065a450de6ad6a7479e0a87622c38603,

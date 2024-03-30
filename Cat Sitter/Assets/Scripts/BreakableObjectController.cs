@@ -19,28 +19,12 @@ public class BreakableObjectController : Interactable
     Vector3 originalScale;
     GameObject brokenObjRef;
     [SerializeField]
-    private collisionCommunicator comm;
+    private CollisionCommunicator comm;
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(fragileObj.transform.position, knockImpulse);
-    }
-
-    public override void CatInterrupted()
-    {
-        currentState = InteractionState.Idle;
-    }
-
-    public override void CatStart()
-    {
-        return;
-    }
-
-    public override void TriggerCatastrophe()
-    {
-        rb.isKinematic = false;
-        rb.AddForce(knockImpulse, ForceMode.Impulse);
     }
 
     void OnEnable()
@@ -52,6 +36,18 @@ public class BreakableObjectController : Interactable
     {
         comm.Broken -= BreakObject;
     }
+
+    public override void CatInterrupted()
+    {
+        currentState = InteractionState.Idle;
+    }
+
+    public override void TriggerCatastrophe()
+    {
+        rb.isKinematic = false;
+        rb.AddForce(knockImpulse, ForceMode.Impulse);
+    }
+
 
     void Start()
     {
@@ -99,6 +95,10 @@ public class BreakableObjectController : Interactable
         fragileObj.SetActive(false);
         brokenObjRef = Instantiate(brokenObject, fragileObj.transform.position, fragileObj.transform.rotation);
         brokenObjRef.transform.parent = fragileObj.transform.parent;
+        if (brokenObjRef.TryGetComponent<OutlineReceiver>(out var outlineReceiver))
+        {
+            outlineReceiver.attachedInteractable = this;
+        }
     }
 
     private void ResetObject()
@@ -123,5 +123,15 @@ public class BreakableObjectController : Interactable
     public override void PlayerFix()
     {
         ResetObject();
+    }
+
+    public override void OnInteractStart()
+    {
+        Debug.Log("Mouse released on " + gameObject.name + ".");
+    }
+
+    public override void OnInteractEnd()
+    {
+        Debug.Log("Mouse released on " + gameObject.name + ".");
     }
 }

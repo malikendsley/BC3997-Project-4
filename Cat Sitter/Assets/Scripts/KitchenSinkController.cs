@@ -6,28 +6,28 @@ using UnityEngine;
 public class KitchenSinkController : Interactable
 {
     float currentTimer = 0.0f;
-    public GameObject waterPlane;
-    public GameObject floodPlane;
-    public Transform lowerWaterPos;
-    public Transform upperWaterPos;
+    public GameObject waterlevelFX;
+    public GameObject floodFX;
+    public Transform lowerWaterLevel;
+    public Transform upperWaterLevel;
 
     public override void CatInterrupted()
     {
         currentState = InteractionState.Idle;
     }
 
-    public override void CatStart()
+    public override void TriggerCatastrophe()
     {
         currentState = InteractionState.Active;
         currentTimer = TimeToCatastrophe;
-        waterPlane.GetComponent<MeshRenderer>().enabled = true;
+        waterlevelFX.GetComponent<MeshRenderer>().enabled = true;
     }
 
     public override void PlayerFix()
     {
         currentState = InteractionState.Idle;
-        floodPlane.GetComponent<MeshRenderer>().enabled = false;
-        waterPlane.GetComponent<MeshRenderer>().enabled = false;
+        floodFX.GetComponent<MeshRenderer>().enabled = false;
+        waterlevelFX.GetComponent<MeshRenderer>().enabled = false;
     }
 
     // Update is called once per frame
@@ -39,11 +39,11 @@ public class KitchenSinkController : Interactable
 
             // As the sink floods, water will start to pool in the sink
             var frac = (TimeToCatastrophe - currentTimer) / TimeToCatastrophe;
-            waterPlane.transform.position = Vector3.Lerp(lowerWaterPos.position, upperWaterPos.position, frac);
+            waterlevelFX.transform.position = Vector3.Lerp(lowerWaterLevel.position, upperWaterLevel.position, frac);
             if (currentTimer <= 0.0f)
             {
                 currentState = InteractionState.Catastrophe;
-                floodPlane.GetComponent<MeshRenderer>().enabled = true;
+                floodFX.GetComponent<MeshRenderer>().enabled = true;
 
                 currentTimer = 0.0f;
                 Debug.Log("Kitchen sink is flooding!");
@@ -51,8 +51,13 @@ public class KitchenSinkController : Interactable
         }
     }
 
-    public override void TriggerCatastrophe()
+    public override void OnInteractStart()
     {
-        return;
+        Debug.Log("Mouse pressed on " + gameObject.name + ".");
+    }
+
+    public override void OnInteractEnd()
+    {
+        Debug.Log("Mouse released on " + gameObject.name + ".");
     }
 }
