@@ -84,6 +84,7 @@ public class BreakableObjectController : Interactable
                 }
                 break;
         }
+        toolAnchorPoint = fragileObj.transform.position;
     }
 
 

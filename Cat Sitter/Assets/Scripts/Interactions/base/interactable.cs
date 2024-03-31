@@ -10,7 +10,7 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] protected float timeToFixCatastrophe;
 
     [SerializeField] protected float timeToCooldown;
-
+    [SerializeField] protected Vector3 toolAnchorPoint;
     // Useful variables for inheriting classes
     protected float lastClickTime;
     protected bool playerInteracting;
@@ -67,24 +67,26 @@ public abstract class Interactable : MonoBehaviour
         return state;
     }
 
-    public InteractableTimings GetInteractionPackage()
+    public InteractableData GetInteractionPackage()
     {
-        return new InteractableTimings(timeToCatastrophe, timeToFixActive, timeToFixCatastrophe, timeToCooldown);
+        return new InteractableData(timeToCatastrophe, timeToFixActive, timeToFixCatastrophe, timeToCooldown, toolAnchorPoint);
     }
 }
 
-public class InteractableTimings
+public class InteractableData
 {
     public float timeToCatastrophe;
     public float timeToFixActive;
     public float timeToFixCatatrophe;
     public float timeToCooldown;
+    public Vector3 toolAnchorPoint;
 
-    public InteractableTimings(float timeToCatastrophe, float timeToFixActive, float timeToFixCatatrophe, float timeToCooldown)
+    public InteractableData(float timeToCatastrophe, float timeToFixActive, float timeToFixCatatrophe, float timeToCooldown, Vector3 toolAnchorPoint)
     {
         this.timeToCatastrophe = timeToCatastrophe;
         this.timeToFixActive = timeToFixActive;
         this.timeToFixCatatrophe = timeToFixCatatrophe;
         this.timeToCooldown = timeToCooldown;
+        this.toolAnchorPoint = toolAnchorPoint;
     }
 }
