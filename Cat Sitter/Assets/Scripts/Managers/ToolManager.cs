@@ -78,7 +78,12 @@ public class ToolManager : MonoBehaviour
         else
         {
             selectedTool = tool;
-
+            if (selectedTool == CatTool.None)
+            {
+                currentTool = null;
+                currentToolScript = null;
+                return;
+            }
             currentTool = Instantiate(GetCurrentToolObject(selectedTool), toolPosition, Quaternion.identity);
             currentToolScript = currentTool.GetComponent<Tool>();
         }
@@ -86,6 +91,7 @@ public class ToolManager : MonoBehaviour
     }
 
     // Called by the screen raycaster when the player clicks in the world
+    // TODO: Push responsibilities into the receivers
     public void HandleScreenAction(OutlineReceiver receiver, ScreenAction action)
     {
         Debug.Log("ToolManager: HandleScreenAction");
@@ -103,7 +109,7 @@ public class ToolManager : MonoBehaviour
                     HandleToolSelected(CatTool.None);
                     receiver.InteractStart();
                 }
-                if (selectedTool == toolMap[interactable.GetType()])
+                if (selectedTool == toolMap[interactable.GetType()] && interactable.GetState() == Interactable.InteractionState.Catastrophe)
                 {
                     usingTool = true;
                     currentTool.GetComponent<Tool>().StartUseTool(interactable);
@@ -117,20 +123,30 @@ public class ToolManager : MonoBehaviour
             case ScreenAction.ReleaseObject:
                 // Technically this would need the same validation but its very unlikely
                 // to somehow swap tools without releasing the object
-                usingTool = false;
-                currentTool.GetComponent<Tool>().StopUseTool();
+                if (currentTool != null)
+                {
+                    usingTool = false;
+                    currentTool.GetComponent<Tool>().StopUseTool();
+                }
                 receiver.InteractEnd();
+
                 break;
 
             // When trying to interact with the world
             case ScreenAction.ClickWorld:
-                Debug.Log("Click world");
-                usingTool = true;
-                currentTool.GetComponent<Tool>().StartUseTool();
+                if (currentTool != null)
+                {
+                    Debug.Log("Click world");
+                    usingTool = true;
+                    currentTool.GetComponent<Tool>().StartUseTool();
+                }
                 break;
             case ScreenAction.ReleaseWorld:
-                usingTool = false;
-                currentTool.GetComponent<Tool>().StopUseTool();
+                if (currentTool != null)
+                {
+                    usingTool = false;
+                    currentTool.GetComponent<Tool>().StopUseTool();
+                }
                 break;
         }
     }
