@@ -36,4 +36,9 @@ public class OutlineReceiver : MonoBehaviour
             Recursionhelper(child, value);
         }
     }
+
+    public virtual Interactable GetInteractable()
+    {
+        return attachedInteractable;
+    }
 }

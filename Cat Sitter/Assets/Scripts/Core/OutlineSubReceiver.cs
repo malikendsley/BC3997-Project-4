@@ -41,4 +41,9 @@ public class OutlineSubReceiver : OutlineReceiver
     {
         parent.InteractEnd();
     }
+
+    public override Interactable GetInteractable()
+    {
+        return parent.GetInteractable();
+    }
 }

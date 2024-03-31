@@ -1,8 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager Instance { get; private set; }
+    public ToolManager ToolManager { get; private set; }
+    public UIController UIController { get; private set; }
+    public ScreenRaycastManager ScreenRaycastManager { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            ToolManager = GetComponent<ToolManager>();
+            UIController = GetComponent<UIController>();
+            ScreenRaycastManager = GetComponent<ScreenRaycastManager>();
+        }
+    }
+
 
     // TODO: Multiple cats?
     public GameObject catRef;
@@ -13,7 +33,6 @@ public class LevelManager : MonoBehaviour
     public float gameLength = 120;
     private float timeRemaining;
 
-    [SerializeField] UIController uicontroller;
     enum GameState
     {
         Playing,
@@ -35,13 +54,13 @@ public class LevelManager : MonoBehaviour
                 interactables.Add(interactable);
             }
         }
-        if (uicontroller == null)
+        if (UIController == null)
         {
             Debug.LogError("UIController not set in LevelManager");
         }
-        uicontroller.SetTime(gameLength);
+        UIController.SetTime(gameLength);
         timeRemaining = gameLength;
-        uicontroller.SetCleanliness(cleanliness);
+        UIController.SetCleanliness(cleanliness);
     }
 
     // Update is called once per frame
@@ -51,7 +70,7 @@ public class LevelManager : MonoBehaviour
         {
             case GameState.Playing:
                 timeRemaining -= Time.deltaTime;
-                uicontroller.SetTime(timeRemaining);
+                UIController.SetTime(timeRemaining);
                 if (timeRemaining <= 0)
                 {
                     Debug.Log("Game Over");
@@ -63,6 +82,7 @@ public class LevelManager : MonoBehaviour
                 break;
         }
     }
+
 
     // TODO: Remove later
 

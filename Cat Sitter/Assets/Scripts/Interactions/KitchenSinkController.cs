@@ -22,7 +22,7 @@ public class KitchenSinkController : Interactable
                 currentTimer -= Time.deltaTime;
 
                 // As the sink floods, water will start to pool in the sink
-                var frac = (TimeToCatastrophe - currentTimer) / TimeToCatastrophe;
+                var frac = (timeToCatastrophe - currentTimer) / timeToCatastrophe;
                 waterlevelFX.transform.position = Vector3.Lerp(lowerWaterLevel.position, upperWaterLevel.position, frac);
                 if (currentTimer <= 0.0f && !playerInteracting) // Be forgiving if the player is interacting
                 {
@@ -34,7 +34,7 @@ public class KitchenSinkController : Interactable
 
                 if (playerInteracting)
                 {
-                    if (Time.time - lastClickTime > TimeToFixActive)
+                    if (Time.time - lastClickTime > timeToFixActive)
                     {
                         FinishFixActive();
                     }
@@ -44,7 +44,7 @@ public class KitchenSinkController : Interactable
                 // TODO: Every so many seconds, tick down the cleanliness
                 if (playerInteracting)
                 {
-                    if (Time.time - lastClickTime > TimeToFixCatatrophe)
+                    if (Time.time - lastClickTime > timeToFixCatastrophe)
                     {
                         FinishFixCatastrophe();
                     }
@@ -64,7 +64,7 @@ public class KitchenSinkController : Interactable
     public override void CatActivateInteractable()
     {
         state = InteractionState.Active;
-        currentTimer = TimeToCatastrophe;
+        currentTimer = timeToCatastrophe;
         waterlevelFX.GetComponent<MeshRenderer>().enabled = true;
     }
 
@@ -94,7 +94,7 @@ public class KitchenSinkController : Interactable
     {
         dustCloud.Stop();
         state = InteractionState.Cooldown;
-        cooldownTimer = TimeToCooldown;
+        cooldownTimer = timeToCooldown;
         floodFX.GetComponent<MeshRenderer>().enabled = false;
         waterlevelFX.GetComponent<MeshRenderer>().enabled = false;
         Debug.Log("Player finished fixing the sink catastrophe");

@@ -2,10 +2,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Manages outlining valid moused over objects and sending clicks to them.
-
-public class ScreenRaycast : MonoBehaviour
+public enum ScreenAction
 {
+    ClickObject,
+    ReleaseObject,
+    ClickWorld,
+    ReleaseWorld,
+}
 
+
+public class ScreenRaycastManager : MonoBehaviour
+{
     OutlineReceiver selectedObject;
     OutlineReceiver clickedObject = null;
     void Update()
@@ -40,6 +47,7 @@ public class ScreenRaycast : MonoBehaviour
     }
 
     // This is a callback for the Input System, it is actually used.
+    // TODO: Migrate to events
     private void OnClick(InputValue value)
     {
         if (value.isPressed && selectedObject != null)
@@ -51,8 +59,12 @@ public class ScreenRaycast : MonoBehaviour
                 if (hit.collider.TryGetComponent<OutlineReceiver>(out var outlineReceiver))
                 {
                     clickedObject = outlineReceiver;
-                    clickedObject.InteractStart();
+                    LevelManager.Instance.ToolManager.HandleScreenAction(clickedObject, ScreenAction.ClickObject);
                 }
+            }
+            else
+            {
+                LevelManager.Instance.ToolManager.HandleScreenAction(null, ScreenAction.ClickWorld);
             }
         }
         else
@@ -60,8 +72,12 @@ public class ScreenRaycast : MonoBehaviour
             // If the mouse is released, end the interaction if one was active
             if (clickedObject != null)
             {
-                clickedObject.InteractEnd();
+                LevelManager.Instance.ToolManager.HandleScreenAction(clickedObject, ScreenAction.ReleaseObject);
                 clickedObject = null;
+            }
+            else
+            {
+                LevelManager.Instance.ToolManager.HandleScreenAction(null, ScreenAction.ReleaseWorld);
             }
         }
     }

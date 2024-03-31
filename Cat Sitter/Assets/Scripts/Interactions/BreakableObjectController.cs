@@ -68,7 +68,7 @@ public class BreakableObjectController : Interactable
             case InteractionState.Catastrophe:
                 if (playerInteracting)
                 {
-                    if (Time.time - lastClickTime > TimeToFixCatatrophe)
+                    if (Time.time - lastClickTime > timeToFixCatastrophe)
                     {
                         FinishFixCatastrophe();
                     }
@@ -169,7 +169,7 @@ public class BreakableObjectController : Interactable
     {
         StopClear();
         state = InteractionState.Cooldown;
-        cdTimer = TimeToCooldown;
+        cdTimer = timeToCooldown;
         ResetObject();
     }
 
