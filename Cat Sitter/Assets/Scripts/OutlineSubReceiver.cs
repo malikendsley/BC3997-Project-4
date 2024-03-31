@@ -39,6 +39,6 @@ public class OutlineSubReceiver : OutlineReceiver
     // User releases the click on the object
     public override void InteractEnd()
     {
-        parent.InteractStart();
+        parent.InteractEnd();
     }
 }

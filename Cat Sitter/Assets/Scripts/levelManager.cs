@@ -13,8 +13,7 @@ public class LevelManager : MonoBehaviour
     public float gameLength = 120;
     private float timeRemaining;
 
-    [SerializeField]
-    UIController uicontroller;
+    [SerializeField] UIController uicontroller;
     enum GameState
     {
         Playing,
@@ -28,6 +27,7 @@ public class LevelManager : MonoBehaviour
     {
         // For every game object in Interactables, add it to the list of interactables
         // if it has an Interactable component
+        // NOTE: Implicit requirement that all interactables' top level gameobject be the one to have the Interactable component
         foreach (Transform child in interactablesContainer.transform)
         {
             if (child.TryGetComponent<Interactable>(out var interactable))
@@ -72,18 +72,7 @@ public class LevelManager : MonoBehaviour
         {
             if (interactable is KitchenSinkController)
             {
-                interactable.TriggerCatastrophe();
-            }
-        }
-    }
-
-    public void debug_FixSinks()
-    {
-        foreach (Interactable interactable in interactables)
-        {
-            if (interactable is KitchenSinkController)
-            {
-                interactable.PlayerFix();
+                interactable.CatActivateInteractable();
             }
         }
     }
@@ -94,18 +83,7 @@ public class LevelManager : MonoBehaviour
         {
             if (interactable is BreakableObjectController)
             {
-                interactable.TriggerCatastrophe();
-            }
-        }
-    }
-
-    public void debug_FixBreakables()
-    {
-        foreach (Interactable interactable in interactables)
-        {
-            if (interactable is BreakableObjectController)
-            {
-                interactable.PlayerFix();
+                interactable.CatActivateInteractable();
             }
         }
     }

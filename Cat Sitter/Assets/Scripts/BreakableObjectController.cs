@@ -12,14 +12,14 @@ public class BreakableObjectController : Interactable
     public GameObject fragileObj;
     public GameObject brokenObject;
     private Rigidbody rb;
-    float currentCDTimer = 0.0f;
+    float cdTimer = 0.0f;
     public Vector3 knockImpulse;
     Vector3 originalPosition;
     Vector3 originalRotation;
     Vector3 originalScale;
     GameObject brokenObjRef;
-    [SerializeField]
-    private CollisionCommunicator comm;
+    [SerializeField] private CollisionCommunicator comm;
+    [SerializeField] ParticleSystem dustCloud;
 
     private void OnDrawGizmosSelected()
     {
@@ -37,15 +37,16 @@ public class BreakableObjectController : Interactable
         comm.Broken -= BreakObject;
     }
 
-    public override void CatInterrupted()
+    public override void CatInterrupt()
     {
-        currentState = InteractionState.Idle;
+        state = InteractionState.Idle;
     }
 
-    public override void TriggerCatastrophe()
+    public override void CatActivateInteractable()
     {
         rb.isKinematic = false;
         rb.AddForce(knockImpulse, ForceMode.Impulse);
+        state = InteractionState.Active;
     }
 
 
@@ -62,24 +63,25 @@ public class BreakableObjectController : Interactable
 
     public void Update()
     {
-        switch (currentState)
+        switch (state)
         {
             case InteractionState.Catastrophe:
+                if (playerInteracting)
+                {
+                    if (Time.time - lastClickTime > TimeToFixCatatrophe)
+                    {
+                        FinishFixCatastrophe();
+                    }
+                }
                 break;
             case InteractionState.Cooldown:
                 // Wait for the cooldown to finish
-                currentCDTimer -= Time.deltaTime;
-                if (currentCDTimer <= 0.0f)
+                cdTimer -= Time.deltaTime;
+                if (cdTimer <= 0.0f)
                 {
-                    // Reset the object
-                    ResetObject();
+                    state = InteractionState.Idle;
+                    cdTimer = 0.0f;
                 }
-                break;
-            case InteractionState.Idle:
-                // Do nothing
-                break;
-            case InteractionState.Active:
-                // Do nothing
                 break;
         }
     }
@@ -88,11 +90,8 @@ public class BreakableObjectController : Interactable
     private void BreakObject()
     {
         Debug.Log("Breaking object");
-        if (currentState == InteractionState.Catastrophe)
-        {
-            return;
-        }
-        fragileObj.SetActive(false);
+        state = InteractionState.Catastrophe;
+        fragileObj.GetComponent<MeshRenderer>().enabled = false;
         brokenObjRef = Instantiate(brokenObject, fragileObj.transform.position, fragileObj.transform.rotation);
         brokenObjRef.transform.parent = fragileObj.transform.parent;
         if (brokenObjRef.TryGetComponent<OutlineReceiver>(out var outlineReceiver))
@@ -104,8 +103,8 @@ public class BreakableObjectController : Interactable
     private void ResetObject()
     {
         Debug.Log("Resetting object");
-        currentState = InteractionState.Idle;
-        fragileObj.SetActive(true);
+        state = InteractionState.Idle;
+        fragileObj.GetComponent<MeshRenderer>().enabled = true;
         rb.isKinematic = true;
         // Grow a new object in the original position
         fragileObj.transform.localScale = new Vector3(.01f, .01f, .01f);
@@ -119,19 +118,64 @@ public class BreakableObjectController : Interactable
                 brokenObjRef = null;
             });
         }
+        comm.Reset();
     }
-    public override void PlayerFix()
+
+    // An active breakable object is one that's been knocked but hasn't been broken yet
+    public override void StartFixActive()
     {
+        rb.isKinematic = true;
+        fragileObj.transform.rotation = Quaternion.identity;
+        var peakAbove = new Vector3((fragileObj.transform.position.x + originalPosition.x) / 2, originalPosition.y + 1, (fragileObj.transform.position.z + originalPosition.z) / 2);
+        LeanTween.move(fragileObj, peakAbove, 0.25f).setEaseOutQuad().setOnComplete(() =>
+        {
+            LeanTween.move(fragileObj, originalPosition, 0.25f).setEaseInQuad().setOnComplete(() =>
+            {
+                state = InteractionState.Idle;
+            });
+        });
+    }
+
+    public override void CancelFixActive()
+    {
+        return; // Catching a falling broken object is instant
+    }
+
+    public override void FinishFixActive()
+    {
+        return; // Catching a falling broken object is instant
+    }
+
+    public override void StartFixCatastrophe()
+    {
+        if (state != InteractionState.Catastrophe)
+        {
+            Debug.LogWarning("Trying to fix a catastrophe that isn't happening");
+            return;
+        }
+        dustCloud.Play();
+    }
+
+    public override void CancelFixCatastrophe()
+    {
+        if (state != InteractionState.Catastrophe)
+        {
+            return;
+        }
+        StopClear();
+    }
+
+    public override void FinishFixCatastrophe()
+    {
+        StopClear();
+        state = InteractionState.Cooldown;
+        cdTimer = TimeToCooldown;
         ResetObject();
     }
 
-    public override void OnInteractStart()
+    private void StopClear()
     {
-        Debug.Log("Mouse released on " + gameObject.name + ".");
-    }
-
-    public override void OnInteractEnd()
-    {
-        Debug.Log("Mouse released on " + gameObject.name + ".");
+        dustCloud.Stop();
+        dustCloud.Clear();
     }
 }
