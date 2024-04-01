@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     public ToolManager ToolManager { get; private set; }
     public UIController UIController { get; private set; }
     public ScreenRaycastManager ScreenRaycastManager { get; private set; }
+    public AudioManager AudioManager { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,6 +25,7 @@ public class LevelManager : MonoBehaviour
             ToolManager = GetComponent<ToolManager>();
             UIController = GetComponent<UIController>();
             ScreenRaycastManager = GetComponent<ScreenRaycastManager>();
+            AudioManager = GetComponent<AudioManager>();
         }
     }
 
