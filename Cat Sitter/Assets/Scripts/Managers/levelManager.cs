@@ -107,4 +107,15 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
+
+    public void debug_StartSummon()
+    {
+        foreach (Interactable interactable in interactables)
+        {
+            if (interactable is SummoningCircle)
+            {
+                interactable.CatActivateInteractable();
+            }
+        }
+    }
 }

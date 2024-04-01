@@ -100,11 +100,6 @@ public class KitchenSinkController : Interactable
         Debug.Log("Player finished fixing the sink catastrophe");
     }
 
-    public override void CatInterrupt()
-    {
-        state = InteractionState.Idle;
-    }
-
     public override void StartFixActive()
     {
         if (state != InteractionState.Active)

@@ -33,9 +33,10 @@ public class ToolManager : MonoBehaviour
     // used to see if you hold the right tool for the job
     // TODO: Make interactables responsible for choosing how to react to interactions
     readonly Dictionary<Type, CatTool> toolMap = new(){
-        {typeof(Interactable), CatTool.FireExtinguisher}, // TODO: Change to FlammableObjectController
+        {typeof(SummoningCircle), CatTool.FireExtinguisher}, // TODO: Change to FlammableObjectController
         {typeof(KitchenSinkController), CatTool.Wrench},
         {typeof(BreakableObjectController), CatTool.Dustpan},
+        {typeof(CatInteractionReceiver), CatTool.CatGrabber},
     };
 
 
@@ -86,6 +87,10 @@ public class ToolManager : MonoBehaviour
             }
             currentTool = Instantiate(GetCurrentToolObject(selectedTool), toolPosition, Quaternion.identity);
             currentToolScript = currentTool.GetComponent<Tool>();
+            if (!currentToolScript.WorldTool)
+            {
+                currentTool.transform.position = new Vector3(-3.27f, 2.07f, -0.81f);
+            }
         }
         LevelManager.Instance.UIController.SetToolText(selectedTool);
     }
@@ -94,7 +99,6 @@ public class ToolManager : MonoBehaviour
     // TODO: Push responsibilities into the receivers
     public void HandleScreenAction(OutlineReceiver receiver, ScreenAction action)
     {
-        Debug.Log("ToolManager: HandleScreenAction");
         switch (action)
         {
             // When trying to interact with an object
@@ -136,7 +140,6 @@ public class ToolManager : MonoBehaviour
             case ScreenAction.ClickWorld:
                 if (currentTool != null)
                 {
-                    Debug.Log("Click world");
                     usingTool = true;
                     currentTool.GetComponent<Tool>().StartUseTool();
                 }

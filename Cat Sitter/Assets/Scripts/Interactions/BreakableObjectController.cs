@@ -37,11 +37,6 @@ public class BreakableObjectController : Interactable
         comm.Broken -= BreakObject;
     }
 
-    public override void CatInterrupt()
-    {
-        state = InteractionState.Idle;
-    }
-
     public override void CatActivateInteractable()
     {
         rb.isKinematic = false;

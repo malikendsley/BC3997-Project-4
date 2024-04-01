@@ -50,17 +50,14 @@ public class ScreenRaycastManager : MonoBehaviour
     // TODO: Migrate to events
     private void OnClick(InputValue value)
     {
-        if (value.isPressed && selectedObject != null)
+        if (value.isPressed)
         {
             // Check if the clicked object is an interactable
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit, 100))
+            if (Physics.Raycast(ray, out var hit, 100) && hit.collider.TryGetComponent<OutlineReceiver>(out var outlineReceiver))
             {
-                if (hit.collider.TryGetComponent<OutlineReceiver>(out var outlineReceiver))
-                {
-                    clickedObject = outlineReceiver;
-                    LevelManager.Instance.ToolManager.HandleScreenAction(clickedObject, ScreenAction.ClickObject);
-                }
+                clickedObject = outlineReceiver;
+                LevelManager.Instance.ToolManager.HandleScreenAction(clickedObject, ScreenAction.ClickObject);
             }
             else
             {

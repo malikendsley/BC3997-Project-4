@@ -31,8 +31,6 @@ public abstract class Interactable : MonoBehaviour
     public abstract void FinishFixCatastrophe(); // Called when the player finishes fixing the catastrophe
 
     public abstract void CatActivateInteractable(); // Called when a cat interacts with the object
-    public abstract void CatInterrupt(); // Used by the cat AI when it is interrupted (the catastrophe is not completed)
-
     public virtual void OnInteractStart() // Called when the player clicks on the object
     {
         Debug.Log("Player started interacting with object");
