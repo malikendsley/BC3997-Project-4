@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SocialPlatforms.GameCenter;
 
 
 public class LevelManager : MonoBehaviour
@@ -32,6 +36,15 @@ public class LevelManager : MonoBehaviour
     public float cleanliness = 100; // TODO: Extract into stat block or something
     public float gameLength = 120;
     private float timeRemaining;
+
+    public Vector3 roomBoundsCenter = new();
+    public Vector3 roomBoundsExtents = new();
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(roomBoundsCenter, roomBoundsExtents * 2);
+    }
 
     enum GameState
     {
@@ -83,39 +96,42 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
-    // TODO: Remove later
-
-    public void debug_StartSinks()
+    // TODO: Reserving interactables should probably be handled outside of them (like in here )
+    public Interactable TryReserveInteractable()
     {
-        foreach (Interactable interactable in interactables)
+        System.Random rng = new();
+        List<Interactable> shuffledInteractables = interactables.OrderBy(i => rng.Next()).ToList();
+
+        foreach (Interactable i in shuffledInteractables)
         {
-            if (interactable is KitchenSinkController)
+            if (i.TryReserve())
             {
-                interactable.CatActivateInteractable();
+                return i;
             }
         }
+        return null;
     }
 
-    public void debug_TriggerBreakables()
+
+    public bool GetRandomNavmeshPoint(out Vector3 result)
     {
-        foreach (Interactable interactable in interactables)
+        for (int i = 0; i < 10; i++)
         {
-            if (interactable is BreakableObjectController)
+            // Generate a random point within the bounds
+            Vector3 randomPointInBounds = roomBoundsCenter + new Vector3(
+                x: UnityEngine.Random.Range(-roomBoundsExtents.x, roomBoundsExtents.x),
+                y: UnityEngine.Random.Range(-roomBoundsExtents.y, roomBoundsExtents.y),
+                z: UnityEngine.Random.Range(-roomBoundsExtents.z, roomBoundsExtents.z)
+            );
+
+            if (NavMesh.SamplePosition(randomPointInBounds, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
-                interactable.CatActivateInteractable();
+                result = hit.position;
+                return true;
             }
         }
+        result = Vector3.zero; // A shorthand for new Vector3(0, 0, 0)
+        return false;
     }
 
-    public void debug_StartSummon()
-    {
-        foreach (Interactable interactable in interactables)
-        {
-            if (interactable is SummoningCircle)
-            {
-                interactable.CatActivateInteractable();
-            }
-        }
-    }
 }

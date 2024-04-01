@@ -27,6 +27,7 @@ public class Dustpan : Tool
             return;
         }
         var interactableData = interactable.GetInteractionPackage();
+        //TODO: Technically should be offset by position but is fixed by a bug that cancels it out in the breakable object controller
         transform.position = interactableData.toolAnchorPoint;
         dustpanAnimator.SetBool("Sweeping", true);
         // If the interactable has a time to fix catastrophe, use that as the auto-cancel timer

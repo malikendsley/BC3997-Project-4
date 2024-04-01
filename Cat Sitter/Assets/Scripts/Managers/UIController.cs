@@ -8,8 +8,11 @@ public class UIController : MonoBehaviour
     [SerializeField] private Gradient gradient;
     [SerializeField] private Slider cleanlinessSlider;
     [SerializeField] TextMeshProUGUI currentToolText;
+    [SerializeField] GameObject distPanel;
+    [SerializeField] TextMeshProUGUI distText;
     void Start()
     {
+        distPanel.SetActive(false);
         cleanlinessSlider.fillRect.GetComponent<Image>().color = gradient.Evaluate(100);
     }
 
@@ -36,6 +39,7 @@ public class UIController : MonoBehaviour
     public void OnLaserPointerSelected()
     {
         Debug.Log("Laser Pointer selected");
+
         LevelManager.Instance.ToolManager.HandleToolSelected(CatTool.LaserPointer);
     }
 
@@ -60,16 +64,17 @@ public class UIController : MonoBehaviour
     public void SetToolText(CatTool tool)
     {
         var toolText = "None";
+        distPanel.SetActive(tool == CatTool.LaserPointer);
         switch (tool)
         {
             case CatTool.CatGrabber:
-                toolText = "Cat Grabber";
+                toolText = "Grabber";
                 break;
             case CatTool.LaserPointer:
-                toolText = "Laser Pointer";
+                toolText = "Laser";
                 break;
             case CatTool.FireExtinguisher:
-                toolText = "Fire Extinguisher";
+                toolText = "Extinguisher";
                 break;
             case CatTool.Wrench:
                 toolText = "Wrench";
@@ -79,6 +84,11 @@ public class UIController : MonoBehaviour
                 break;
         }
         currentToolText.text = toolText;
+    }
+
+    public void SetDist(float dist)
+    {
+        distText.text = "Dist: " + dist.ToString("F2");
     }
 
 }

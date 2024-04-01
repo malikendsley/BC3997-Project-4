@@ -14,14 +14,20 @@ public abstract class Interactable : MonoBehaviour
     // Useful variables for inheriting classes
     protected float lastClickTime;
     protected bool playerInteracting;
+
+    // TODO: Properly set up access to these from outside
+    [SerializeField] float interactionDistance;
+    [SerializeField] float interactionTime;
     // Idle: Nothing is happening
     // Active: The item is progressing towards a catastrophe
     // Catastrophe: The item is in the middle of a catastrophe
     // Cooldown: The item is in cooldown after a catastrophe
-    // TODO: Might need -ing states for transitions between states
     public enum InteractionState { Idle, Active, Catastrophe, Cooldown }
     protected InteractionState state = InteractionState.Idle;
+    bool reserved = false;
 
+    public float InteractionDistance { get => interactionDistance; set => interactionDistance = value; }
+    public float InteractionTime { get => interactionTime; set => interactionTime = value; }
     public abstract void StartFixActive(); // Called when the player starts fixing the activated object
     public abstract void CancelFixActive(); // Called when the player cancels fixing the activated object
     public abstract void FinishFixActive(); // Called when the player finishes fixing the activated object
@@ -68,6 +74,25 @@ public abstract class Interactable : MonoBehaviour
     public InteractableData GetInteractionPackage()
     {
         return new InteractableData(timeToCatastrophe, timeToFixActive, timeToFixCatastrophe, timeToCooldown, toolAnchorPoint);
+    }
+
+    public bool TryReserve()
+    {
+        // Only idle interactables can be reserved by cats
+        if (state != InteractionState.Idle)
+        {
+            return false;
+        }
+        if (!reserved)
+        {
+            reserved = true;
+        }
+        return reserved;
+    }
+
+    public void Release()
+    {
+        reserved = false;
     }
 }
 

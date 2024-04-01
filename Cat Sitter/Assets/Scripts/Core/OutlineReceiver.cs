@@ -5,6 +5,8 @@ public class OutlineReceiver : MonoBehaviour
     // Outlines are drawn for any object on the layer "Outlined Objects"
     // Recursively move all of the objects this object is a parent of to or from the "Outlined Objects" layer
     // Since outlines and interactions are shared between objects, this script also routes clicks to interactables
+    // TODO: (Related to CatInteractionReceiver) this class only really cares
+    // TODO: That the attached script is able to receive clicks, not necessarily that it's an interactable
     public Interactable attachedInteractable;
     public virtual void EnableOutline()
     {

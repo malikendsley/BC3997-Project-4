@@ -104,6 +104,9 @@ MonoBehaviour:
   timeToFixActive: 0
   timeToFixCatastrophe: 3
   timeToCooldown: 2
+  toolAnchorPoint: {x: 0, y: 0, z: 0}
+  interactionDistance: 1.5
+  interactionTime: 2
   fragileObj: {fileID: 341185070008800327}
   brokenObject: {fileID: 3974199751576788767, guid: fd72f829e810c044f8ba343c74560bc4,
     type: 3}

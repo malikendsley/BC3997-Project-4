@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,11 +11,13 @@ public class SummoningCircle : Interactable
     [SerializeField] GameObject demon;
     [SerializeField] List<GameObject> fireFX = new();
     [SerializeField] ParticleSystem dustCloud;
+    [SerializeField] Collider c;
     float currentTimer;
     float cdTimer;
 
     public override void CatActivateInteractable()
     {
+        summoningCircle.SetActive(true);
         state = InteractionState.Active;
         currentTimer = timeToCatastrophe;
     }
@@ -49,6 +50,7 @@ public class SummoningCircle : Interactable
     {
         LeanTween.scale(demon, new(0.01f, 0.01f, 0.01f), .25f).setOnComplete(() =>
         {
+            c.enabled = false;
             demon.transform.localScale = Vector3.one;
             demon.SetActive(false);
         });
@@ -64,7 +66,9 @@ public class SummoningCircle : Interactable
     // Start is called before the first frame update
     void Start()
     {
-        summoningCircle.SetActive(true);
+        summoningCircle.SetActive(false);
+        summoningProgressFX.fillAmount = 0;
+        c.enabled = false;
         demon.SetActive(false);
         foreach (var fx in fireFX)
         {
@@ -81,11 +85,12 @@ public class SummoningCircle : Interactable
                 if (currentTimer > 0)
                 {
                     currentTimer -= Time.deltaTime;
-                    summoningProgressFX.fillAmount = currentTimer / timeToCatastrophe;
+                    summoningProgressFX.fillAmount = (timeToCatastrophe - currentTimer) / timeToCatastrophe;
                 }
                 else
                 {
                     state = InteractionState.Catastrophe;
+                    c.enabled = true;
                     demon.SetActive(true);
                     foreach (var fx in fireFX)
                     {
@@ -101,7 +106,7 @@ public class SummoningCircle : Interactable
                 }
                 break;
             case InteractionState.Catastrophe:
-                demon.transform.eulerAngles = new Vector3(0, demon.transform.eulerAngles.y + Time.deltaTime * 10, 0);
+                demon.transform.eulerAngles = new Vector3(0, demon.transform.eulerAngles.y + Time.deltaTime * 100, 0);
                 if (playerInteracting)
                 {
                     if (Time.time - lastClickTime > timeToFixCatastrophe)

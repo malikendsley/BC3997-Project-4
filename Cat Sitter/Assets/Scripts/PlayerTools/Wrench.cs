@@ -27,7 +27,7 @@ public class Wrench : Tool
             return;
         }
         var interactableData = interactable.GetInteractionPackage();
-        transform.position = interactableData.toolAnchorPoint;
+        transform.position = interactableData.toolAnchorPoint + interactable.transform.position;
         wrenchAnimator.SetBool("Wrenching", true);
         // If the interactable has a time to fix catastrophe, use that as the auto-cancel timer
         // This way, the tool stops sweeping when the catastrophe is fixed even if the player doesn't release the button

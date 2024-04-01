@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 // TODO: State machine this?
 public enum CatTool // TODO: Maybe scrap this system if it doesn't mature
@@ -104,8 +105,15 @@ public class ToolManager : MonoBehaviour
             // When trying to interact with an object
             case ScreenAction.ClickObject:
                 var interactable = receiver.GetInteractable(); // TODO: Brittle
+                Debug.Log("Interactable Retrieved: " + interactable.GetType().ToString() + " " + interactable.GetState().ToString());
                 // Special case clicking on an active object
                 // (Active objects can be fixed before they become catastrophes without a tool)
+                if (interactable is CatInteractionReceiver && selectedTool == CatTool.CatGrabber)
+                {
+                    usingTool = true;
+                    currentTool.GetComponent<Tool>().StartUseTool(interactable);
+                    receiver.InteractStart();
+                }
                 if (interactable.GetState() == Interactable.InteractionState.Active)
                 {
                     // Unequip the tool and interact like normal

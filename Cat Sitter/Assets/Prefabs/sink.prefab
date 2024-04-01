@@ -564,8 +564,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToCatastrophe: 4
   timeToFixActive: 1
-  timeToFixCatatrophe: 5
+  timeToFixCatastrophe: 5
   timeToCooldown: 2
+  toolAnchorPoint: {x: 0, y: 2, z: 0}
   waterlevelFX: {fileID: 9018734658353697222}
   floodFX: {fileID: 6318469591681926407}
   lowerWaterLevel: {fileID: 8917491403424870802}
