@@ -80,8 +80,9 @@ public class SummoningCircle : Interactable
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        base.Update();
         switch (state)
         {
             case InteractionState.Active:
@@ -92,6 +93,7 @@ public class SummoningCircle : Interactable
                 }
                 else
                 {
+                    LevelManager.Instance.AudioManager.PlayAudio("summon2");
                     state = InteractionState.Catastrophe;
                     c.enabled = true;
                     demon.SetActive(true);

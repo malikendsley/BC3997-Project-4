@@ -56,8 +56,9 @@ public class BreakableObjectController : Interactable
         originalScale = fragileObj.transform.localScale;
     }
 
-    public void Update()
+    public override void Update()
     {
+        base.Update();
         switch (state)
         {
             case InteractionState.Catastrophe:

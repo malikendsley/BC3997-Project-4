@@ -13,9 +13,12 @@ public class KitchenSinkController : Interactable
     private float currentTimer;
     [SerializeField] ParticleSystem dustCloud;
     private float cooldownTimer = 0.0f;
+    [SerializeField] AudioSource floodSound;
+
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        base.Update();
         switch (state)
         {
             case InteractionState.Active:
@@ -26,6 +29,7 @@ public class KitchenSinkController : Interactable
                 waterlevelFX.transform.position = Vector3.Lerp(lowerWaterLevel.position, upperWaterLevel.position, frac);
                 if (currentTimer <= 0.0f && !playerInteracting) // Be forgiving if the player is interacting
                 {
+                    floodSound.Play();
                     state = InteractionState.Catastrophe;
                     floodFX.GetComponent<MeshRenderer>().enabled = true;
                     currentTimer = 0.0f;
@@ -98,6 +102,7 @@ public class KitchenSinkController : Interactable
         floodFX.GetComponent<MeshRenderer>().enabled = false;
         waterlevelFX.GetComponent<MeshRenderer>().enabled = false;
         Debug.Log("Player finished fixing the sink catastrophe");
+        floodSound.Stop();
     }
 
     public override void StartFixActive()

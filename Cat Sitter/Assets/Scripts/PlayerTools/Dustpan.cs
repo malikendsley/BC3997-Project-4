@@ -5,7 +5,7 @@ public class Dustpan : Tool
 
     [SerializeField] Animator dustpanAnimator;
     float autoCancelTimer = 0.0f;
-
+    [SerializeField] AudioSource a;
     void Update()
     {
         if (autoCancelTimer > 0)
@@ -33,11 +33,13 @@ public class Dustpan : Tool
         // If the interactable has a time to fix catastrophe, use that as the auto-cancel timer
         // This way, the tool stops sweeping when the catastrophe is fixed even if the player doesn't release the button
         autoCancelTimer = interactableData.timeToFixCatatrophe;
+        a.Play();
     }
 
     public override void StopUseTool()
     {
         // The tool manager will reposition the tool on release
         dustpanAnimator.SetBool("Sweeping", false);
+        a.Stop();
     }
 }

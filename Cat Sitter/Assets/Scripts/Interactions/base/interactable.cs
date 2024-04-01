@@ -96,6 +96,23 @@ public abstract class Interactable : MonoBehaviour
     {
         reserved = false;
     }
+
+    public virtual void Update()
+    {
+        if (state == InteractionState.Catastrophe)
+        {
+            cleanlinessTicker -= Time.deltaTime;
+            if (cleanlinessTicker <= 0.0f)
+            {
+                LevelManager.Instance.ReduceCleanliness(3.0f);
+                cleanlinessTicker = cleanlinessTickTime;
+            }
+        }
+        else
+        {
+            cleanlinessTicker = cleanlinessTickTime;
+        }
+    }
 }
 
 public class InteractableData

@@ -25,7 +25,7 @@ public class Extinguisher : Tool
             return;
         }
         var interactableData = interactable.GetInteractionPackage();
-
+        LevelManager.Instance.AudioManager.PlayAudio("extinguish");
         // Pick a random spot near the anchor point to move the tool to
         Vector3 randomOffset = RandomAnnulusPoint(2f, 3f, 1.5f);
         transform.position = interactableData.toolAnchorPoint + randomOffset + interactable.transform.position;

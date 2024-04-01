@@ -1466,8 +1466,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a23b448084558e34bb4ef0d6b0687e18, type: 3}
   - id: summon
     clip: {fileID: 8300000, guid: 04d2769af174d95449fb7316e210b0fa, type: 3}
-  - id: 
-    clip: {fileID: 0}
+  - id: wrench
+    clip: {fileID: 8300000, guid: c8f4a4b02ca1cf44ba0b1546a21fbb85, type: 3}
+  - id: extinguish
+    clip: {fileID: 8300000, guid: fab433748f7951748ad90439905cfa79, type: 3}
+  - id: summon2
+    clip: {fileID: 8300000, guid: ce0dcec0d03c91c488895727565c46ba, type: 3}
 --- !u!4 &602804924 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1022578210276601127, guid: 0660264e80bc2d54f958166bac754d07,
@@ -6287,16 +6291,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sink
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590919872978643439, guid: 071321f68c595a2458bbf89bdb968302,
-        type: 3}
-      propertyPath: interactionTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590919872978643439, guid: 071321f68c595a2458bbf89bdb968302,
-        type: 3}
-      propertyPath: interactionDistance
-      value: 2.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

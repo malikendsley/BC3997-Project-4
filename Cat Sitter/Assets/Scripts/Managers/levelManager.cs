@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SocialPlatforms.GameCenter;
-using UnityEngine.UIElements;
 
 
 public class LevelManager : MonoBehaviour
