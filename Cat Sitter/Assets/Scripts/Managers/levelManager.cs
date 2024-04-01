@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SocialPlatforms.GameCenter;
+using UnityEngine.UIElements;
 
 
 public class LevelManager : MonoBehaviour
@@ -41,6 +42,9 @@ public class LevelManager : MonoBehaviour
 
     public Vector3 roomBoundsCenter = new();
     public Vector3 roomBoundsExtents = new();
+
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] GameObject endOfGamePanel;
 
     void OnDrawGizmos()
     {
@@ -88,7 +92,7 @@ public class LevelManager : MonoBehaviour
                 UIController.SetTime(timeRemaining);
                 if (timeRemaining <= 0)
                 {
-                    Debug.Log("Game Over");
+                    endOfGamePanel.SetActive(true);
                 }
                 break;
             case GameState.Paused:
@@ -136,4 +140,18 @@ public class LevelManager : MonoBehaviour
         return false;
     }
 
+    internal void ReduceCleanliness(float amt)
+    {
+        cleanliness -= amt;
+        UIController.SetCleanliness(cleanliness);
+        if (cleanliness <= 0)
+        {
+            gameOverPanel.SetActive(true);
+        }
+    }
+
+    public void RestartGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
 }

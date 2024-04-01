@@ -14,7 +14,8 @@ public class CatController : MonoBehaviour
     float newActivityTimer = 0;
     float interactionTimer = 0;
     Interactable currentInteractable;
-
+    float meowTimer = 0;
+    float meowTime = 4;
     CatStates state = CatStates.Idle;
 
     enum CatStates
@@ -117,6 +118,18 @@ public class CatController : MonoBehaviour
         else
         {
             newActivityTimer -= Time.deltaTime;
+        }
+
+        // Meow every so often
+        if (meowTimer <= 0)
+        {
+            meowTimer = meowTime;
+            var meowString = "meow" + Random.Range(1, 6);
+            LevelManager.Instance.AudioManager.PlayAudio(meowString);
+        }
+        else
+        {
+            meowTimer -= Time.deltaTime;
         }
     }
 

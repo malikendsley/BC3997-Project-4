@@ -25,6 +25,8 @@ public abstract class Interactable : MonoBehaviour
     public enum InteractionState { Idle, Active, Catastrophe, Cooldown }
     protected InteractionState state = InteractionState.Idle;
     bool reserved = false;
+    [SerializeField] float cleanlinessTicker;
+    [SerializeField] float cleanlinessTickTime = 1.0f;
 
     public float InteractionDistance { get => interactionDistance; set => interactionDistance = value; }
     public float InteractionTime { get => interactionTime; set => interactionTime = value; }

@@ -129,7 +129,10 @@ public class ToolManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Tool mismatch: " + selectedTool + " vs " + toolMap[interactable.GetType()]);
+                    if (selectedTool != toolMap[interactable.GetType()])
+                        Debug.Log("Tool mismatch: " + selectedTool + " vs " + toolMap[interactable.GetType()]);
+                    else
+                        Debug.Log("Interactable not in correct state: " + interactable.GetState());
                 }
                 break;
             case ScreenAction.ReleaseObject:

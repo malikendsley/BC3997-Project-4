@@ -17,6 +17,7 @@ public class SummoningCircle : Interactable
 
     public override void CatActivateInteractable()
     {
+        LevelManager.Instance.AudioManager.PlayAudio("summon");
         summoningCircle.SetActive(true);
         state = InteractionState.Active;
         currentTimer = timeToCatastrophe;
@@ -48,6 +49,8 @@ public class SummoningCircle : Interactable
     }
     public override void FinishFixCatastrophe()
     {
+        LevelManager.Instance.AudioManager.PlayAudio("summon");
+        Debug.Log("Summoning circle fixed");
         LeanTween.scale(demon, new(0.01f, 0.01f, 0.01f), .25f).setOnComplete(() =>
         {
             c.enabled = false;
@@ -106,7 +109,7 @@ public class SummoningCircle : Interactable
                 }
                 break;
             case InteractionState.Catastrophe:
-                demon.transform.eulerAngles = new Vector3(0, demon.transform.eulerAngles.y + Time.deltaTime * 100, 0);
+                demon.transform.eulerAngles = new Vector3(-90, demon.transform.eulerAngles.y + Time.deltaTime * 100, 0);
                 if (playerInteracting)
                 {
                     if (Time.time - lastClickTime > timeToFixCatastrophe)

@@ -63,6 +63,7 @@ public class UIController : MonoBehaviour
 
     public void SetToolText(CatTool tool)
     {
+        LevelManager.Instance.AudioManager.PlayAudio("click");
         var toolText = "None";
         distPanel.SetActive(tool == CatTool.LaserPointer);
         switch (tool)

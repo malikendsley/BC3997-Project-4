@@ -86,6 +86,8 @@ public class BreakableObjectController : Interactable
     private void BreakObject()
     {
         Debug.Log("Breaking object");
+        var breakString = "p" + UnityEngine.Random.Range(1, 3);
+        LevelManager.Instance.AudioManager.PlayAudio(breakString);
         state = InteractionState.Catastrophe;
         fragileObj.GetComponent<MeshRenderer>().enabled = false;
         brokenObjRef = Instantiate(brokenObject, fragileObj.transform.position, fragileObj.transform.rotation);
